@@ -2471,11 +2471,19 @@ def watch_later():
         # xbmc.log(json.dumps(item))
         items.append({
                 'label': item['title'],
+                'label2': item['title'],
+                'offscreen': True,
                 'path':  plugin.url_for('sources', url='https://www.bilibili.com/video/{}'.format(item['bvid'])),
                 'thumbnail': item['pic'],
                 'icon': item['pic'],
+                'fanart': item['owner']['face'],
                 'info': {
+                    'rating': item['stat']['view'],
+                    'userrating': item['stat']['like'],
+                    'playcount': item['stat']['view'],
                     'writer': item['owner']['name'],
+                    'director': item['owner']['name'],
+                    'genre': item['tname'],
                     'tag': item['tname'],
                     'cast': [item['owner']['name']],
                     'dateadded': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(item['ctime'])),
@@ -2483,7 +2491,11 @@ def watch_later():
                     'face': item['owner']['face'],
                     'uid': item['owner']['mid'],
                     'duration': item['duration'],
-                    'plot': u'[COLOR pink]UP:[/COLOR]' + item['owner']['name'] + ' ' + str(item['stat']['view']) + '\n\n' + item['desc'],
+                    'media_count': item['stat']['view'],
+                    'img': item['pic'],
+                    'reply': zh(item['stat']['reply']),
+                    'plot': item['desc'],
+                    'plotoutline': u'[COLOR pink]UP: [/COLOR]' + item['owner']['name'] + '  ' + str(zh(item['stat']['view'])) + u'播放' +'\n\n' + item['desc'],
                 },
         })
     # xbmc.log(json.dumps(items))
